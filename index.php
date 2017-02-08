@@ -18,11 +18,11 @@
 	
 	//On définie les liens des boutons en fonction de l'état de connexion
 	if(isset($_SESSION["statut"]) && $_SESSION["statut"] == 'Etudiant') {
-		$way = "../annonces-etudiant/";
+		$way = "etudiant/annonces-etudiant.php";
 	} else if(isset($_SESSION["statut"]) && $_SESSION["statut"] == 'Professionnel') {
 		$way ="#";
 	} else {
-		$way = "../connexion/";
+		$way = "etudiant/connexion.php";
 	}
 
 	// On instancie les variables qu'on utilisera plus tard
