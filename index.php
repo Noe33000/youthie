@@ -14,28 +14,28 @@
     }
       */
 
-	require_once "../inc/connect.php";
+	require_once "inc/connect.php";
 	
 	//On définie les liens des boutons en fonction de l'état de connexion
 	if(isset($_SESSION["statut"]) && $_SESSION["statut"] == 'Etudiant') {
-		$way = "../annonces-etudiant/";
+		$way = "etudiant/annonces-etudiant/";
 	} else if(isset($_SESSION["statut"]) && $_SESSION["statut"] == 'Professionnel') {
 		$way ="#";
 	} else {
-		$way = "../connexion/";
+		$way = "etudiant/connexion.php";
 	}
 
 	// On instancie les variables qu'on utilisera plus tard
 	$isMobile = false;
 	$isStudient = false;	
 	$isPro = false;
-	$link = "../inscription/";
+	$link = "etudiant/inscription.php";
 	$error = array();
 	$lastAnnonces = array();
 
 
 	// On vérifie si l'utilisateur est sur mobile.
-	require_once '../Mobile-Detect-2.8.24/Mobile_Detect.php';
+	require_once 'Mobile-Detect-2.8.24/Mobile_Detect.php';
 	$detect = new Mobile_Detect;
 	if ( $detect->isMobile() ) {
 		$isMobile = true;	
@@ -44,18 +44,17 @@
 	// On véfifie si l'utilisateur connecté est un professionnel
 	if(isset($_SESSION["statut"]) && $_SESSION["statut"] == 'Professionnel') {
 		$isPro = true;
-		$link = "../mon-entreprise/";
+		$link = "professionnel/deposer_annonce.php";
 	}elseif (isset($_SESSION["statut"]) && $_SESSION["statut"] == 'Etudiant') {
 		$isStudient = true;	
-		$link = "../annonces-etudiant/";
+		$link = "etudiant/annonces-etudiant.php";
 	}
 
 	//On récupère les 4 dernière annonces disponibles
-	$req = $conn->prepare('SELECT * FROM youthie_mission ORDER BY STR_TO_DATE(DateParution, "%d/%m/%Y") DESC LIMIT 4');
+	$req = $conn->prepare('SELECT * FROM missions ORDER BY  DESC LIMIT 4');
 
 	if($req->execute()){
 		$lastAnnonces = $req->fetchAll(PDO::FETCH_ASSOC);
-
 	}
 	else{
 		$error[] = 'Impossible de trouver les dernières offres.';
@@ -66,12 +65,12 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Youthie : Faire d'une mission un succès</title>
-	<link rel="icon" type="image/png" href="../images/favicon.png" />
-	<link rel="stylesheet" href="../css/bootstrap.css">
-	<link rel="stylesheet" href="../css/style.css">
-	<link rel="stylesheet" href="../css/youthie_form.css">
-	<script src="../js/mode.js"></script>
-	<link rel="stylesheet" href="../css/newStyle.css">
+	<link rel="icon" type="image/png" href="images/favicon.png" />
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/youthie_form.css">
+	<script src="inc/js/mode.js"></script>
+	<link rel="stylesheet" href="css/newStyle.css">
 </head>
 <script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -86,13 +85,12 @@
 <body>
 <!-- GNU General Public License, version 3 (GPL-3.0) -->
 <div class="wrapper">
-	<a href="../menumob/"><div class="nav-toggle"></div></a>
-	<?php require '../navbar/navbar.php'; ?>
+	<?php require 'inc/navbar/navbar.php'; ?>
 	<main>
 		<?php if($isMobile == true) : ?>
 			<section id="wrapMobile">
 				<div id="wrapImgMobile">
-					<img id="imgMobile" src="../images/student/7.jpg">
+					<img id="imgMobile" alt="image sur mobile" src="images/student/7.jpg">
 				</div>
 				<div class='content'>
 					<div >
@@ -101,11 +99,11 @@
 								Youthie, la première plateforme de mise en relation directe entre étudiants et professionnels
 							</p>
 							<?php if($isPro == true){ ?>
-								<a href="../mon-entreprise/">
+								<a href="professionnel/deposer_annonce.php">
 									<div class="rectangle">Publier une mission</div>
 								</a>
 							<?php } else {?>
-								<a href="../pro-inscription/">
+								<a href="professionnel/inscription.php/">
 									<div class="rectangle">Publier une mission</div>
 								</a>
 							<?php } ?>
@@ -117,7 +115,7 @@
 			<section id="SecVideoAcc" class="module content">
 				<div id="wrapVideoAcc">
 
-					<video id="videoAcc" width="100%" height="90%" src="../images/Youthie%20-%20Grande.mov" autoplay loop muted></video>
+					<video id="videoAcc" width="100%" height="90%" src="images/Youthie%20-%20Grande.mov" autoplay loop muted></video>
 				</div>
 				<div class='content'>
 					<div >
@@ -126,11 +124,11 @@
 								Youthie, la première plateforme de mise en relation directe entre étudiants et professionnels
 							</p>
 							<?php if($isPro == true){ ?>
-								<a href="../mon-entreprise/">
+								<a href="professionnel/deposer_annonce.php">
 									<div class="rectangle">Publier une mission</div>
 								</a>
 							<?php } else { ?>
-								<a href="../pro-inscription/">
+								<a href="professionnel/inscription.php">
 									<div class="rectangle">Publier une mission</div>
 								</a>
 							<?php } ?>
@@ -146,7 +144,7 @@
 				<div id="wrapDomainsAcc">
 					<a href="<?php  echo $link; ?>"><div class="niveau1 domaine">
 							<p>
-								<img src="../images/communication.png" height="84px" width="84px" />
+								<img src="images/communication.png" height="84px" width="84px" />
 								<br><br>COMMUNICATION<br>
 							</p>
 							<p class="niveau2">
@@ -160,7 +158,7 @@
 						</div></a>
 					<a href="<?php  echo $link; ?>"><div class="niveau1 domaine center">
 							<p>
-								<img src="../images/marketing.png" height="84px" width="84px" />
+								<img src="images/marketing.png" height="84px" width="84px" />
 								<br><br>MARKETING<br>
 							</p>
 							<p class="niveau2">
@@ -439,7 +437,7 @@
 		</section>
 	</main> <!-- Fin de  -->
 </div>
-<?php include_once '../footer/footer.php'; ?>
+<?php include_once 'inc/footer/footer.php'; ?>
 <!-- jssor slider scripts-->
 <!-- use jssor.js + jssor.slider.js instead for development -->
 <!-- jssor.slider.mini.js = (jssor.js + jssor.slider.js) -->
