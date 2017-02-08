@@ -53,7 +53,7 @@ if(isset($_POST['email'])) {
 
 	<a href="../menumob/"><div class="nav-toggle"></div></a>
 
-	<?php require '../navbar/navbar.php'; ?>
+	<?php require '../inc/header.php'; ?>
 
 	<main class="main fond5" style="min-height:700px;padding-top:150px;">
 
@@ -82,5 +82,5 @@ if(isset($_POST['email'])) {
 </div>
 <!-- GNU General Public License, version 3 (GPL-3.0) -->
 </body>
-<?php require '../footer/footer.php'; ?>
+<?php require '../inc/footer.php'; ?>
 </html>

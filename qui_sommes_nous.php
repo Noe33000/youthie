@@ -28,7 +28,7 @@
 
 	<a href="../menumob/"><div class="nav-toggle"></div></a>
 
-	<?php require '../navbar/navbar.php'; ?>
+	<?php require 'inc/headerIndex.php'; ?>
 
 	<section>
 		<div class="container">
@@ -37,7 +37,7 @@
 						Une équipe aux multiples compétences,<br>
 						&nbsp un défi: simplifier le freelance étudiant.
 					</p>
-					<img id="imgWho" src="../images/qui-sommes-nous.jpg">
+					<img id="imgWho" src="images/qui-sommes-nous.jpg">
 					<a href="#" data-width="700" data-rel="popup1" class="poplight">
 						<div id="linkVideo"></div>
 					</a>
@@ -65,9 +65,9 @@
 					<h2 id="titleOurTeam">Notre équipe</h2>
 					<div class="col-md-2"></div>
 					<div class="col-md-4 wrap-img">
-						<img class="imgTeam" src="../images/Nicolas.jpg" alt="Photo présentation Nico">
+						<img class="imgTeam" src="images/Nicolas.jpg" alt="Photo présentation Nico">
 						<a href="https://www.linkedin.com/in/nicolas-ella-10821390" target="_blank">
-							<img title="Linkdin" src="../images/linkdin.png" />
+							<img title="Linkdin" src="images/linkdin.png" />
 						</a>
 						<br><br><br>
 						<p style="line-height: 1.5em" class="name">
@@ -77,9 +77,9 @@
 						</p>
 					</div>
 					<div class="col-md-4 wrap-img">
-						<img class="imgTeam" src="../images/cyril.jpg" alt="Photo présentation Cyril">
+						<img class="imgTeam" src="images/cyril.jpg" alt="Photo présentation Cyril">
 						<a href="https://www.linkedin.com/in/cyrilblatha" target="_blank">
-							<img title="Linkdin" src="../images/linkdin.png" />
+							<img title="Linkdin" src="images/linkdin.png" />
 						</a>
 						<br><br><br>
 						<p style="line-height: 1.5em" class="name">
@@ -90,9 +90,9 @@
 					<div class="col-md-2"></div>
 					
 					<div class="col-md-4 wrap-img">
-						<img class="imgTeam" src="../images/Noé.jpg" alt="Photo présentation Noé">
+						<img class="imgTeam" src="images/Noé.jpg" alt="Photo présentation Noé">
 						<a href="https://www.linkedin.com/in/no%C3%A9-champigny-289770124" target="_blank">
-							<img title="Linkdin" src="../images/linkdin.png" />
+							<img title="Linkdin" src="images/linkdin.png" />
 						</a>
 						<br><br><br>
 						<p style="line-height: 1.5em" class="name">
@@ -101,9 +101,9 @@
 						</p>
 					</div>
 					<div class="col-md-4 wrap-img">
-						<img class="imgTeam" src="../images/jade.jpg" alt="Photo présentation Jade">
+						<img class="imgTeam" src="images/jade.jpg" alt="Photo présentation Jade">
 						<a href="https://www.linkedin.com/in/jade-p-3953b5a3?trk=hp-identity-name" target="_blank">
-							<img title="Linkdin" src="../images/linkdin.png" />
+							<img title="Linkdin" src="images/linkdin.png" />
 						</a>
 						<br><br><br>
 						<p style="line-height: 1.5em" class="name">
@@ -112,9 +112,9 @@
 						</p>
 					</div>
 					<div class="col-md-4 wrap-img">
-						<img class="imgTeam" src="../images/Mohammed.jpg" alt="Photo présentation Mohammed">
+						<img class="imgTeam" src="images/Mohammed.jpg" alt="Photo présentation Mohammed">
 						<a href="https://www.linkedin.com/in/mohamed-guelai-382816109" target="_blank">
-							<img title="Linkdin" src="../images/linkdin.png" />
+							<img title="Linkdin" src="images/linkdin.png" />
 						</a>
 						<br><br><br>
 						<p style="line-height: 1.5em" class="name">
@@ -129,19 +129,19 @@
 				<div id="soutient">
 					<h2 id="titleSoutient">Ils nous soutiennent</h2>
 					<div class="col-md-4 wrap-img-soutient">
-						<img class="imgSoutient" src="../images/al.jpg">
+						<img class="imgSoutient" src="images/al.jpg">
 						<br><br>
 						<h4>Alexandre Savin</h4>
 						<p>Chargé de mission entrepreneuriat Ubeelab</p>
 					</div>
 					<div class="col-md-4 wrap-img-soutient">
-						<img class="imgSoutient" src="../images/cr.png">
+						<img class="imgSoutient" src="images/cr.png">
 						<br><br>
 						<h4>Christophe Riba</h4>
 						<p>Fondateur Ulinkoo</p>
 					</div>
 					<div class="col-md-4 wrap-img-soutient">
-						<img class="imgSoutient" src="../images/la.jpg">
+						<img class="imgSoutient" src="images/la.jpg">
 						<br><br>
 						<h4>Laetitia Blondeau</h4>
 						<p>Coordinatrice d'entrepreneuriat ECA-PEPITE</p>
@@ -153,7 +153,7 @@
 </div>
 <!-- GNU General Public License, version 3 (GPL-3.0) -->
 </body>
-<?php require '../footer/footer.php'; ?>
+<?php require 'inc/footerIndex.php'; ?>
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script>
 	

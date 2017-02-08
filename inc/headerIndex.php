@@ -27,7 +27,7 @@
 
 <div class="info-bar" style="z-index:10">
     <div class="container">
-        <a href="../accueil/"><img title="Faire d'une mission un succès" src="../images/logo_nav.png" style="float:left;margin-top:5px;margin-left: 2.5%;position:relative" /></a>
+        <a href="index.php"><img title="Faire d'une mission un succès" src="images/logo_nav.png" style="float:left;margin-top:5px;margin-left: 2.5%;position:relative" /></a>
         <ul id="navbar" style="margin-top:15px;">
             <?php if(isset($_SESSION["statut"]) && $_SESSION["statut"] == 'Professionnel' && $is_admin == 1) { ?>
                 <li><a href="../profil_youthie/" title="PROFIL YOUTHIE"><span style="color:#79b6e4;">PROFIL YOUTHIE</span></a></li>
@@ -36,7 +36,7 @@
                 <li><a href="../annonces-etudiant/" title="ANNONCES EN LIGNE"><span style="color:#79b6e4;">ANNONCES EN LIGNE</span></a></li>
             <?php } ?>
             <?php if((isset($_SESSION["statut"]) && $_SESSION["statut"] != 'Etudiant') || (!(isset($_SESSION["statut"]))) || (isset($_SESSION["statut"]) && $_SESSION["statut"] == 'Professionnel')) {?>
-                <li><a href="../qui-sommes-nous/"><span style="color:#79b6e4;">QUI SOMMES-NOUS ?</span></a></li>
+                <li><a href="qui_sommes_nous.php"><span style="color:#79b6e4;">QUI SOMMES-NOUS ?</span></a></li>
             <?php } ?>
             <?php if(isset($_SESSION["statut"]) && $_SESSION["statut"] == 'Etudiant') { ?>
                 <li><a href="../mission_etudiant/"><span style="color:#79b6e4;">MES MISSIONS</span></a></li>
@@ -45,10 +45,10 @@
                 <li><a href="../mission_pro/"><span style="color:#79b6e4;">MES MISSIONS</span></a></li>
             <?php } ?>
             <?php if(!(isset($_SESSION["statut"])) || $_SESSION["statut"] == 'Etudiant') {?>
-                <li><a href="../espace-etudiants/"><span class="M_con" style="color:#79b6e4;">ESPACE ÉTUDIANTS</span></a></li>
+                <li><a href="etudiant/connection.php"><span class="M_con" style="color:#79b6e4;">ESPACE ÉTUDIANTS</span></a></li>
             <?php } ?>
             <?php if(!(isset($_SESSION["statut"]))) {?>
-                <li><a href="../pro-connexion/">
+                <li><a href="professionnel/connection.php">
                     <div class="rectangle" style="display:inline-block; margin-top: -0.75em;">ESPACE PRO</div>
                 </a></li>
             <?php } ?>

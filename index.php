@@ -417,7 +417,7 @@
 		</section>
 	</main> <!-- Fin de  -->
 </div>
-<?php include_once 'inc/footer.php'; ?>
+<?php include_once 'inc/footerIndex.php'; ?>
 <!-- jssor slider scripts-->
 <!-- use jssor.js + jssor.slider.js instead for development -->
 <!-- jssor.slider.mini.js = (jssor.js + jssor.slider.js) -->
