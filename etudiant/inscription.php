@@ -1,4 +1,6 @@
 <?php 
+//Masque les erreurs php
+//ini_set("display_errors",0);error_reporting(0);
 require_once "../inc/connect.php";
 //include_once "../inc/fonctions.php";
 session_start();
@@ -8,10 +10,12 @@ $exist = false;
 $msgConfirm = false;
 $showErr = false;
 $errors = array();
+$post = array();
+$etapeInsc = '1';
 
 
 if(isset($_SESSION) && !empty($_SESSION)){
-	header('Location: ../accueil');
+	header('Location: ../index.php');
 }
 
 if(!empty($_POST)){
@@ -20,15 +24,15 @@ if(!empty($_POST)){
 	}	
 
 	if(strlen($post['firstname']) < 2 || strlen($post['firstname']) > 15){
-		$errors[] = 'Votre prénom doit contenir entre 2 et 15 caractères';
+		$errors[] = 'Votre prénom doit contenir entre 2 et 15 caractères.';
 	}
 
 	if(strlen($post['lastname']) < 2 || strlen($post['lastname']) > 20){
-		$errors[] = 'Votre nom doit contenir entre 2 et 20 caractères';
+		$errors[] = 'Votre nom doit contenir entre 2 et 20 caractères.';
 	}
 
 	if(strlen($post['password']) < 8){
-		$errors[] = 'Votre mot de passe doit contenir au moins 5 caractères';
+		$errors[] = 'Votre mot de passe doit contenir au moins 5 caractères.';
 	}
 
 	if(strlen($post['phone']) < 10){
@@ -36,13 +40,21 @@ if(!empty($_POST)){
 	}
 
 	if($post['password'] != $post['password_confirm']){
-		$errors[] = 'Votre mot de passe n\'est pas identique';
+		$errors[] = 'Votre mot de passe n\'est pas identique.';
 	}
+
 	if(!filter_var($post['email'], FILTER_VALIDATE_EMAIL)){
-		$errors[] = 'Votre adresse email n\'est pas valide';
+		$errors[] = 'Votre adresse email n\'est pas valide.';
 	}
+
 	if(!isset($post['day']) || !isset($post['month']) || !isset($post['year'])){
 		$errors[] = 'Veuillez indiquer votre date de naissance.';
+	}
+	if($post['driver_license'] !== 'yes' && $post['driver_license'] !== 'no'){
+		$errors[] = 'Veuillez indiquer si vous avez votre permis de conduire.';
+	}
+	if($post['car'] !== 'yes' && $post['car'] !== 'no'){
+		$errors[] = 'Veuillez indiquer si vous avez une voiture.';
 	}
 	else{
 		if($post['day'] < 10){
@@ -55,7 +67,8 @@ if(!empty($_POST)){
 		$birthdate = $birthdate->format('Y-m-d');
 	}
 	if(count($errors) === 0){
-		
+		// On hash le password pour qu'il ne soit pas en clair dans la bdd
+		$password = password_hash($post['password'], PASSWORD_DEFAULT);
 		// On va chercher l'adresse mail dans la bbd pour voir si un compte existe déjà
 		$req = $conn->prepare('SELECT * FROM studients WHERE email = :email');
 		$req->bindParam(':email', $post['email']);
@@ -69,15 +82,31 @@ if(!empty($_POST)){
 		// Ici l'adresse mail n'existe pas, on peut donc créer le compte
 		else{
 			
-			$res = $conn->prepare('INSERT INTO studients (`firstname`, `lastname`, `password`, `email`, `phone`, `birthdate`, `date_inscription`, `inscription`)
-				VALUES (:firstname, :lastname, :password, :email, :phone, :birthdate, NOW(), :inscription)');
+			$res = $conn->prepare('INSERT INTO studients (
+				`firstname`, 
+				`lastname`, 
+				`password`, 
+				`email`, 
+				`phone`, 
+				`birthdate`, 
+				`date_inscription`, 
+				`inscription`)
+				VALUES (
+				:firstname, 
+				:lastname, 
+				:password, 
+				:email, 
+				:phone, 
+				:birthdate, 
+				NOW(), 
+				:inscription)');
 			$res->bindParam(':firstname', $post['firstname']);
 			$res->bindParam(':lastname', $post['lastname']);
 			$res->bindParam(':password', $password);
 			$res->bindParam(':email', $post['email']);
 			$res->bindParam(':phone', $post['phone']);
 			$res->bindParam(':birthdate', $birthdate);
-			$res->bindParam(':inscription', '1', PDO::PARAM_INT);
+			$res->bindParam(':inscription', $etapeInsc, PDO::PARAM_INT);
 
 			// Si l'inscription s'est bien déroulé
 			if ($res->execute()) {
@@ -100,15 +129,18 @@ if(!empty($_POST)){
 					echo $infoUser['id'];
 				}
 				$_SESSION['user'] = [
-					'id' 		=> $infoUser['id'],
-					'firstname' => $post['firstname'],
-					'lastname' 	=> $post['lastname'],
-					'email' 	=> $post['email'],
+					'id' 			=> $infoUser['id'],
+					'firstname' 	=> $post['firstname'],
+					'lastname' 		=> $post['lastname'],
+					'email' 		=> $post['email'],
+					'inscription'	=> $etapeInsc
 				];
 				// Puis on le redirige vers la deuxième page de connexion
-				header('Location: ../accueil');
+				header('Location: inscription2.php');
 			}
 			else{
+				print_r($res->errorInfo());
+
 				$errors[] = 'Erreur lors de l\'inscription';
 			}
 		}
@@ -120,6 +152,7 @@ if(!empty($_POST)){
 		}
 	}
 }
+	var_dump($post);
 ?>
 <!DOCTYPE html>
 <html>
@@ -149,7 +182,7 @@ if(!empty($_POST)){
 
 	<a href="../menumob/"><div class="nav-toggle"></div></a>
 
-	<?php require '../inc/navbar/navbar.php'; ?>
+	<?php require '../inc/header.php'; ?>
 
 	<main class="main fond3">
 
@@ -196,7 +229,7 @@ if(!empty($_POST)){
 						<div class="col-md-4 form-date">
 							<select name="month" class="form-control grey">
 								<option class="grey" value="" selected disabled>Mois</option>
-								<option value="01" <?php if($showErr == true && $post['month'] == '01'){echo 'selected';}?> >Janvier</option>';
+								<option value="01" <?php if($showErr == true && $post['month'] == '01'){echo 'selected';}?>>Janvier</option>';
 								<option value="02" <?php if($showErr == true && $post['month'] == '02'){echo 'selected';}?>>Février</option>';
 								<option value="03" <?php if($showErr == true && $post['month'] == '03'){echo 'selected';}?>>Mars</option>';
 								<option value="04" <?php if($showErr == true && $post['month'] == '04'){echo 'selected';}?>>Avril</option>';
@@ -237,12 +270,12 @@ if(!empty($_POST)){
 						<input id="password_confirm" name="password_confirm" class="form-control width" required type="password" placeholder="Confirmez votre mot de passe* ">
 						<br>
 						<label for="license">Avez vous le permis de conduire ?</label>
-						<input type="radio" name="driver_license" value="yes" > Oui
-						<input type="radio" name="driver_license" value="no" > Non
+						<input type="radio" name="driver_license" value="yes"> Oui
+						<input type="radio" name="driver_license" value="no"> Non
 						<br>
 						<label for="license">Avez vous une voiture ?</label>
-						<input type="radio" name="car" value="yes" > Oui
-						<input type="radio" name="car" value="no" > Non
+						<input type="radio" name="car" value="yes"> Oui
+						<input type="radio" name="car" value="no"> Non
 						<br>
 
 						<input type="checkbox" name="newsletter" value="news" <?php if($showErr == true && $post['newsletter'] == 'news'){echo 'checked="checked"';} ?>> Je souhaite recevoir  la newsletter Youthies
@@ -263,5 +296,5 @@ if(!empty($_POST)){
 </div>
 <!-- GNU General Public License, version 3 (GPL-3.0) -->
 </body>
-<?php require '../inc/footer/footer.php'; ?>
+<?php require '../inc/footer.php'; ?>
 </html>
