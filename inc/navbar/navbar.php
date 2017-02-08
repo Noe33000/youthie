@@ -1,6 +1,24 @@
+<?php
+$conn = new mysqli("localhost","root", "", "arkamitcjfefedb3");
+//$conn = new mysqli('arkamitcjfefedb3.mysql.db', 'arkamitcjfefedb3', 'C6c6f7946fdc', 'arkamitcjfefedb3');
+if($conn->connect_error) {
+    die("Connection failed : ". $conn->connect_error);
+}
+if (isset($_SESSION['id'])) {
+    $id_youthie = $_SESSION["id"];
+    $sql = "SELECT * FROM youthie_professionnels WHERE id ='$id_youthie' ";
+    $_result = $conn->query($sql);
+    if($_result->num_rows > 0) {
+        while($_row = $_result->fetch_assoc()) {
+            $is_admin = $_row['Admin'];
+        }
+    }
+}
+$conn->close();
+?>
 <div class="info-bar" style="z-index:10">
     <div class="container">
-        <a href="../accueil/"><img title="Faire d'une mission un succès" src="images/logo_nav.png" style="float:left;margin-top:5px;margin-left: 2.5%;position:relative" /></a>
+        <a href="../accueil/"><img title="Faire d'une mission un succès" src="../images/logo_nav.png" style="float:left;margin-top:5px;margin-left: 2.5%;position:relative" /></a>
         <ul id="navbar" style="margin-top:15px;">
             <?php if(isset($_SESSION["statut"]) && $_SESSION["statut"] == 'Professionnel' && $is_admin == 1) { ?>
                 <li><a href="../profil_youthie/" title="PROFIL YOUTHIE"><span style="color:#79b6e4;">PROFIL YOUTHIE</span></a></li>
