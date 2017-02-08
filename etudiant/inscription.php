@@ -69,15 +69,16 @@ if(!empty($_POST)){
 		// Ici l'adresse mail n'existe pas, on peut donc créer le compte
 		else{
 			
-			$res = $conn->prepare('INSERT INTO studients (`firstname`, `lastname`, `password`, `email`, `phone`, `birthdate`, `date_inscription`)
-				VALUES (:firstname, :lastname, :password, :email, :phone, :birthdate, :inscription)');
+			$res = $conn->prepare('INSERT INTO studients (`firstname`, `lastname`, `password`, `email`, `phone`, `birthdate`, `date_inscription`, `inscription`)
+				VALUES (:firstname, :lastname, :password, :email, :phone, :birthdate, NOW(), :inscription)');
 			$res->bindParam(':firstname', $post['firstname']);
 			$res->bindParam(':lastname', $post['lastname']);
 			$res->bindParam(':password', $password);
 			$res->bindParam(':email', $post['email']);
 			$res->bindParam(':phone', $post['phone']);
 			$res->bindParam(':birthdate', $birthdate);
-			$res->bindParam(':inscription', $date_create);
+			$res->bindParam(':inscription', '1', PDO::PARAM_INT);
+
 			// Si l'inscription s'est bien déroulé
 			if ($res->execute()) {
 				$msgConfirm = true;
@@ -243,7 +244,7 @@ if(!empty($_POST)){
 						<input type="radio" name="car" value="yes" > Oui
 						<input type="radio" name="car" value="no" > Non
 						<br>
-						
+
 						<input type="checkbox" name="newsletter" value="news" <?php if($showErr == true && $post['newsletter'] == 'news'){echo 'checked="checked"';} ?>> Je souhaite recevoir  la newsletter Youthies
 						<br>
 						<p class="linkConnecInscri">
