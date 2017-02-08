@@ -29,7 +29,7 @@
 	$isMobile = false;
 	$isStudient = false;	
 	$isPro = false;
-	$link = "../inscription/";
+	$link = "etudiant/inscription.php";
 	$error = array();
 	$lastAnnonces = array();
 
@@ -44,10 +44,10 @@
 	// On véfifie si l'utilisateur connecté est un professionnel
 	if(isset($_SESSION["statut"]) && $_SESSION["statut"] == 'Professionnel') {
 		$isPro = true;
-		$link = "../mon-entreprise/";
+		$link = "professionnel/deposer_annonce.php";
 	}elseif (isset($_SESSION["statut"]) && $_SESSION["statut"] == 'Etudiant') {
 		$isStudient = true;	
-		$link = "../annonces-etudiant/";
+		$link = "etudiant/annonces-etudiant.php";
 	}
 
 	//On récupère les 4 dernière annonces disponibles
@@ -67,7 +67,7 @@
 		<?php if($isMobile == true) : ?>
 			<section id="wrapMobile">
 				<div id="wrapImgMobile">
-					<img id="imgMobile" src="../images/student/7.jpg">
+<!-- refaire le "alt" --><img id="imgMobile" src="images/student/7.jpg" alt="freelance etudiant"> 
 				</div>
 				<div class='content'>
 					<div >
@@ -76,11 +76,11 @@
 								Youthie, la première plateforme de mise en relation directe entre étudiants et professionnels
 							</p>
 							<?php if($isPro == true){ ?>
-								<a href="../mon-entreprise/">
+								<a href="professionnel/deposer_annonce.php">
 									<div class="rectangle">Publier une mission</div>
 								</a>
 							<?php } else {?>
-								<a href="../pro-inscription/">
+								<a href="professionnel/inscription.php">
 									<div class="rectangle">Publier une mission</div>
 								</a>
 							<?php } ?>
@@ -92,7 +92,7 @@
 			<section id="SecVideoAcc" class="module content">
 				<div id="wrapVideoAcc">
 
-					<video id="videoAcc" width="100%" height="90%" src="../images/Youthie%20-%20Grande.mov" autoplay loop muted></video>
+					<video id="videoAcc" width="100%" height="90%" src="images/Youthie%20-%20Grande.mov" autoplay loop muted></video>
 				</div>
 				<div class='content'>
 					<div >
@@ -101,11 +101,11 @@
 								Youthie, la première plateforme de mise en relation directe entre étudiants et professionnels
 							</p>
 							<?php if($isPro == true){ ?>
-								<a href="../mon-entreprise/">
+								<a href="professionnel/deposer_annonce.php">
 									<div class="rectangle">Publier une mission</div>
 								</a>
 							<?php } else { ?>
-								<a href="../pro-inscription/">
+								<a href="professionnel/inscription.php">
 									<div class="rectangle">Publier une mission</div>
 								</a>
 							<?php } ?>
@@ -121,7 +121,8 @@
 				<div id="wrapDomainsAcc">
 					<a href="<?php  echo $link; ?>"><div class="niveau1 domaine">
 							<p>
-								<img src="../images/communication.png" height="84px" width="84px" />
+								<img src="images/communication.png" height="84px" width="84px" alt="logo com"/>
+	<!-- refaire le alt -->
 								<br><br>COMMUNICATION<br>
 							</p>
 							<p class="niveau2">
@@ -135,7 +136,8 @@
 						</div></a>
 					<a href="<?php  echo $link; ?>"><div class="niveau1 domaine center">
 							<p>
-								<img src="../images/marketing.png" height="84px" width="84px" />
+								<img src="images/marketing.png" height="84px" width="84px" alt="logo marketing"/>
+	<!-- refaire le alt -->
 								<br><br>MARKETING<br>
 							</p>
 							<p class="niveau2">
@@ -148,7 +150,8 @@
 						</div></a>
 					<a href="<?php  echo $link; ?>"><div class="niveau1 domaine">
 							<p>
-								<img src="../images/evenementiel.png" height="84px" width="84px" />
+								<img src="images/evenementiel.png" height="84px" width="84px" alt="logo event"/>
+	<!-- refaire le alt -->
 								<br><br>ÉVÉNEMENTIEL<br>
 							</p>
 							<p class="niveau2">
@@ -162,7 +165,7 @@
 						</div></a>
 					<a href="<?php  echo $link; ?>"><div class="niveau1 domaine">
 							<p>
-								<img src="../images/finance.png" height="84px" width="84px" />
+	<!-- refaire le "alt" -->	<img src="images/finance.png" height="84px" width="84px" alt="logo finance"/>
 								<br><br>FINANCE<br>
 							</p>
 							<p class="niveau2">
@@ -176,7 +179,7 @@
 						</div></a>
 					<a href="<?php  echo $link; ?>"><div class="niveau1 domaine">
 							<p>
-								<img src="../images/audiovisuel.png" height="84px" width="84px" />
+	<!-- refaire le "alt" -->	<img src="images/audiovisuel.png" height="84px" width="84px" alt="logo audiovisuel"/>
 								<br><br>AUDIOVISUEL<br>
 							</p>
 							<p class="niveau2">
@@ -190,14 +193,14 @@
 						</div></a>
 					<a href="<?php  echo $link; ?>"><div class="niveau1 domaine">
 							<p>
-								<img src="../images/informatique.png" height="84px" width="84px" />
+	<!-- refaire le "alt" -->	<img src="images/informatique.png" height="84px" width="84px" alt="logo informatique"/>
 								<br><br>INFORMATIQUE<br>
 							</p>
 							<p class="niveau2">
 								<br>
 								Développement Web <br>
 								Développement Mobile <br>
-								Administration Base de données <br>
+								Administration Bases de données <br>
 								Automatisation de Tests <br>
 								Administration Système <br>
 								Administration Réseau <br>
@@ -205,14 +208,14 @@
 						</div></a>
 					<a href="<?php  echo $link; ?>"><div class="niveau1 domaine">
 							<p>
-								<img src="../images/graphisme.png" height="84px" width="84px" />
+	<!-- refaire le "alt" -->	<img src="images/graphisme.png" height="84px" width="84px" alt="logo graphisme"/>
 								<br><br>GRAPHISME<br>
 							</p>
 							<p class="niveau2">
 								<br>
 								Création de logo <br>
 								Charte graphique <br>
-								Réalisation d’infographies <br>
+								Réalisation de graphismes <br>
 								Flyers, bannières publicitaires <br>
 								Retouches photos <br>
 								Webdesign <br>
@@ -220,13 +223,13 @@
 						</div></a>
 					<a href="<?php  echo $link; ?>"><div class="niveau1 domaine">
 							<p>
-								<img src="../images/droit.png" height="84px" width="84px" />
+	<!-- refaire le "alt" -->	<img src="images/droit.png" height="84px" width="84px" alt="logo droit"/>
 								<br><br>DROIT<br>
 							</p>
 							<p class="niveau2">
 								Informations juridiques  <br>
 								Recherches jurisprudentielles <br>
-								Rédaction de conclusion <br>
+								Rédaction de conclusions <br>
 							</p>
 						</div></a>
 				</div>
@@ -286,28 +289,28 @@
 				$remuneration = $row['BudgetMission'] / 100;
 				$titre = $row['Titre'];
 				if ($row['Marketing'] == "on") {
-					$src = "../images/marketing.png";
+					$src = "images/marketing.png";
 				}
 				if ($row['Droit'] == "on") {
-					$src = "../images/droit.png";
+					$src = "images/droit.png";
 				}
 				if ($row['Finance'] == "on") {
-					$src = "../images/finance.png";
+					$src = "images/finance.png";
 				}
 				if ($row['Audiovisuel'] == "on") {
-					$src = "../images/audiovisuel.png";
+					$src = "images/audiovisuel.png";
 				}
 				if ($row['Evenementiel'] == "on") {
-					$src = "../images/evenementiel.png";
+					$src = "images/evenementiel.png";
 				}
 				if ($row['Informatique'] == "on") {
-					$src = "../images/informatique.png";
+					$src = "images/informatique.png";
 				}
 				if ($row['Communication'] == "on") {
-					$src = "../images/communication.png";
+					$src = "images/communication.png";
 				}
 				if ($row['Graphisme'] == "on") {
-					$src = "../images/graphisme.png";
+					$src = "images/graphisme.png";
 				}
 				?>
 				<div class="annoncesAcc">
@@ -348,7 +351,7 @@
 						Faire confiance à Youthie c'est confier vos missions au freelance étutiant de votre choix et procéder à un gain de temps et d'argent considérable. 
 					</p>
 					<div class="col-md-3 wrapPlus">
-						<img class="plus_hands" src="../images/plus_blue.png"><br>
+						<img class="plus_hands" src="images/plus_blue.png"><br>
 						<h3 class="titleCroix">
 							Besoin :<br>
 						</h3>
@@ -357,7 +360,7 @@
 						</p>	
 					</div>
 					<div class="col-md-3 wrapPlus">
-						<img class="plus_hands" src="../images/plus_blue.png"><br>
+						<img class="plus_hands" src="images/plus_blue.png"><br>
 						<h3 class="titleCroix">
 							Flexibilité :<br>
 						</h3>
@@ -366,7 +369,7 @@
 						</p>
 					</div>
 					<div class="col-md-3 wrapPlus">
-						<img class="plus_hands" src="../images/plus_blue.png"><br>
+						<img class="plus_hands" src="images/plus_blue.png"><br>
 						<h3 class="titleCroix">
 							Coût :<br>
 						</h3>
@@ -375,7 +378,7 @@
 						</p>
 					</div>
 					<div class="col-md-3 wrapPlus">
-						<img class="plus_hands" src="../images/plus_blue.png"><br>
+						<img class="plus_hands" src="images/plus_blue.png"><br>
 						<h3 class="titleCroix">
 							Opportunité :<br>
 						</h3>
@@ -392,29 +395,29 @@
 				<h2 id="titleSout">Ils nous soutiennent</h2>
 				<div class="row">
 					<div class="col-xs-2 wrapLogoSout">
-						<img class="logoSout" src="../images/confiance1.png" />
+<!-- refaire le "alt" --><img class="logoSout" src="images/confiance1.png" alt="partenariat ministère"/>
 					</div>
 					<div class="col-xs-2 wrapLogoSout">
-						<img class="logoSout" src="../images/confiance2.png" />
+<!-- refaire le "alt" --><img class="logoSout" src="images/confiance2.png" alt="partenariat pepite"/>
 					</div>
 					<div class="col-xs-2 wrapLogoSout">
-						<img class="logoSout" src="../images/confiance3.png" />
+<!-- refaire le "alt" --><img class="logoSout" src="images/confiance3.png" alt="partenariat ECA"/>
 					</div>
 					<div class="col-xs-2 wrapLogoSout">
-						<img class="logoSout" src="../images/CA.jpg" />
+<!-- refaire le "alt" --><img class="logoSout" src="images/CA.jpg" alt="partenariat Credit Agricole"/>
 					</div>
 					<div class="col-xs-2 wrapLogoSout">
-						<img class="logoSout" src="../images/ubeelab.jpg" />
+<!-- refaire le "alt" --><img class="logoSout" src="images/ubeelab.jpg" alt="partenariat UbeeLab"/>
 					</div>
 					<div class="col-xs-2 wrapLogoSout">
-						<img class="logoSout" src="../images/confiance4.jpg" />
+<!-- refaire le "alt" --><img class="logoSout" src="images/confiance4.jpg" alt="partenariat BYBC"/>
 					</div>
 				</div>
 			</div>
 		</section>
 	</main> <!-- Fin de  -->
 </div>
-<?php include_once '../footer/footer.php'; ?>
+<?php include_once 'inc/footer.php'; ?>
 <!-- jssor slider scripts-->
 <!-- use jssor.js + jssor.slider.js instead for development -->
 <!-- jssor.slider.mini.js = (jssor.js + jssor.slider.js) -->

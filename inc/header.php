@@ -6,7 +6,8 @@
 	<link rel="icon" type="image/png" href="../images/favicon.png" />
 	<link rel="stylesheet" href="../css/bootstrap.css">
 	<link rel="stylesheet" href="../css/style.css">
-	<link rel="stylesheet" href="../css/youthie_form.css">
+    <link rel="stylesheet" href="../css/youthie_form.css">
+	<link rel="stylesheet" href="../css/newStyle.css">
 	<script src="../js/mode.js"></script>
 	<link rel="stylesheet" href="../css/newStyle.css">
 </head>
