@@ -14,9 +14,9 @@ $post = array();
 $etapeInsc = '1';
 
 
-if(isset($_SESSION) && !empty($_SESSION)){
+/*if(isset($_SESSION) && !empty($_SESSION)){
 	header('Location: ../index.php');
-}
+}*/
 
 if(!empty($_POST)){
 	foreach($_POST as $key => $value){
@@ -229,18 +229,18 @@ if(!empty($_POST)){
 						<div class="col-md-4 form-date">
 							<select name="month" class="form-control grey">
 								<option class="grey" value="" selected disabled>Mois</option>
-								<option value="01" <?php if($showErr == true && $post['month'] == '01'){echo 'selected';}?>>Janvier</option>';
-								<option value="02" <?php if($showErr == true && $post['month'] == '02'){echo 'selected';}?>>Février</option>';
-								<option value="03" <?php if($showErr == true && $post['month'] == '03'){echo 'selected';}?>>Mars</option>';
-								<option value="04" <?php if($showErr == true && $post['month'] == '04'){echo 'selected';}?>>Avril</option>';
-								<option value="05" <?php if($showErr == true && $post['month'] == '05'){echo 'selected';}?>>Mai</option>';
-								<option value="06" <?php if($showErr == true && $post['month'] == '06'){echo 'selected';}?>>Juin</option>';
-								<option value="07" <?php if($showErr == true && $post['month'] == '07'){echo 'selected';}?>>Juillet</option>';
-								<option value="08" <?php if($showErr == true && $post['month'] == '08'){echo 'selected';}?>>Août</option>';
-								<option value="09" <?php if($showErr == true && $post['month'] == '09'){echo 'selected';}?>>Septembre</option>';
-								<option value="10" <?php if($showErr == true && $post['month'] == '10'){echo 'selected';}?>>Octobre</option>';
-								<option value="11" <?php if($showErr == true && $post['month'] == '11'){echo 'selected';}?>>Novembre</option>';
-								<option value="12" <?php if($showErr == true && $post['month'] == '12'){echo 'selected';}?>>Décembre</option>';
+								<option value="01" <?php if($showErr == true && $post['month'] == '01'){echo 'selected';}?>>Janvier</option>
+								<option value="02" <?php if($showErr == true && $post['month'] == '02'){echo 'selected';}?>>Février</option>
+								<option value="03" <?php if($showErr == true && $post['month'] == '03'){echo 'selected';}?>>Mars</option>
+								<option value="04" <?php if($showErr == true && $post['month'] == '04'){echo 'selected';}?>>Avril</option>
+								<option value="05" <?php if($showErr == true && $post['month'] == '05'){echo 'selected';}?>>Mai</option>
+								<option value="06" <?php if($showErr == true && $post['month'] == '06'){echo 'selected';}?>>Juin</option>
+								<option value="07" <?php if($showErr == true && $post['month'] == '07'){echo 'selected';}?>>Juillet</option>
+								<option value="08" <?php if($showErr == true && $post['month'] == '08'){echo 'selected';}?>>Août</option>
+								<option value="09" <?php if($showErr == true && $post['month'] == '09'){echo 'selected';}?>>Septembre</option>
+								<option value="10" <?php if($showErr == true && $post['month'] == '10'){echo 'selected';}?>>Octobre</option>
+								<option value="11" <?php if($showErr == true && $post['month'] == '11'){echo 'selected';}?>>Novembre</option>
+								<option value="12" <?php if($showErr == true && $post['month'] == '12'){echo 'selected';}?>>Décembre</option>
 							</select>
 						</div>
 						<div class="col-md-4 form-date">
