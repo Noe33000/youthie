@@ -14,7 +14,7 @@
     }
       */
 
-	require_once "../inc/connect.php";
+	require_once "inc/connect.php";
 	
 	//On définie les liens des boutons en fonction de l'état de connexion
 	if(isset($_SESSION["statut"]) && $_SESSION["statut"] == 'Etudiant') {
@@ -35,7 +35,7 @@
 
 
 	// On vérifie si l'utilisateur est sur mobile.
-	require_once '../Mobile-Detect-2.8.24/Mobile_Detect.php';
+	require_once 'Mobile-Detect-2.8.24/Mobile_Detect.php';
 	$detect = new Mobile_Detect;
 	if ( $detect->isMobile() ) {
 		$isMobile = true;	
@@ -62,7 +62,7 @@
 	}
 ?>
 <!-- HEADER -->
-<?php include_once 'inc/header.php'; ?>
+<?php include_once 'inc/headerIndex.php'; ?>
 <!-- END OF HEADER -->
 		<?php if($isMobile == true) : ?>
 			<section id="wrapMobile">

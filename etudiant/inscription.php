@@ -84,7 +84,7 @@ if(!empty($_POST)){
 
 				// S'il a accepté la newsletter, on l'ajoute dans la table Newsletter
 				if($post['newsletter'] == 'news'){
-					$news = $conn->prepare('INSERT INTO newsletter (email) VALUES (:email)');
+					$news = $conn->prepare('INSERT INTO newsletter (email, date_inscription) VALUES (:email, NOW())');
 
 					$news->bindParam(':email', $post['email']);
 					$news->execute();
@@ -98,14 +98,14 @@ if(!empty($_POST)){
 					$infoUser = $req->fetch(PDO::FETCH_ASSOC);
 					echo $infoUser['id'];
 				}
-				/*$_SESSION['user'] = [
+				$_SESSION['user'] = [
 					'id' 		=> $infoUser['id'],
 					'firstname' => $post['firstname'],
 					'lastname' 	=> $post['lastname'],
 					'email' 	=> $post['email'],
 				];
-				// Puis on le redirige vers la page de son profile
-				header('Location: ../accueil');*/
+				// Puis on le redirige vers la deuxième page de connexion
+				header('Location: ../accueil');
 			}
 			else{
 				$errors[] = 'Erreur lors de l\'inscription';
@@ -148,9 +148,9 @@ if(!empty($_POST)){
 
 	<a href="../menumob/"><div class="nav-toggle"></div></a>
 
-	<?php require '../navbar/navbar.php'; ?>
+	<?php require '../inc/navbar/navbar.php'; ?>
 
-	<main class="main fond3" style="min-height:700px;padding-top:50px;">
+	<main class="main fond3">
 
 		<section class="main_section">
 			<div class="container">
@@ -235,10 +235,19 @@ if(!empty($_POST)){
 						<br>
 						<input id="password_confirm" name="password_confirm" class="form-control width" required type="password" placeholder="Confirmez votre mot de passe* ">
 						<br>
+						<label for="license">Avez vous le permis de conduire ?</label>
+						<input type="radio" name="driver_license" value="yes" > Oui
+						<input type="radio" name="driver_license" value="no" > Non
+						<br>
+						<label for="license">Avez vous une voiture ?</label>
+						<input type="radio" name="car" value="yes" > Oui
+						<input type="radio" name="car" value="no" > Non
+						<br>
+						
 						<input type="checkbox" name="newsletter" value="news" <?php if($showErr == true && $post['newsletter'] == 'news'){echo 'checked="checked"';} ?>> Je souhaite recevoir  la newsletter Youthies
 						<br>
 						<p class="linkConnecInscri">
-							<a href="../connexion/" class="colorLink">Déjà inscrit ?</a>
+							<a href="../connexion/" class="colorLink right blue">Déjà inscrit ?</a>
 						</p>
 						<button class="btn btn-default" type="submit">Créer mon compte</button>
 						<br>
@@ -253,5 +262,5 @@ if(!empty($_POST)){
 </div>
 <!-- GNU General Public License, version 3 (GPL-3.0) -->
 </body>
-<?php require '../footer/footer.php'; ?>
+<?php require '../inc/footer/footer.php'; ?>
 </html>
