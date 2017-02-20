@@ -13,6 +13,7 @@ $errors = array();
 $post = array();
 $etapeInsc = '1';
 $statut = 'etudiant';
+$partner = 'no';
 
 
 /*if(isset($_SESSION) && !empty($_SESSION)){
@@ -91,7 +92,8 @@ if(!empty($_POST)){
 				`phone`, 
 				`birthdate`, 
 				`date_inscription`, 
-				`inscription`)
+				`inscription`,
+				`partner`)
 				VALUES (
 				:firstname, 
 				:lastname, 
@@ -100,7 +102,8 @@ if(!empty($_POST)){
 				:phone, 
 				:birthdate, 
 				NOW(), 
-				:inscription)');
+				:inscription,
+				:partner)');
 			$res->bindParam(':firstname', $post['firstname']);
 			$res->bindParam(':lastname', $post['lastname']);
 			$res->bindParam(':password', $password);
@@ -108,6 +111,7 @@ if(!empty($_POST)){
 			$res->bindParam(':phone', $post['phone']);
 			$res->bindParam(':birthdate', $birthdate);
 			$res->bindParam(':inscription', $etapeInsc, PDO::PARAM_INT);
+			$res->bindParam(':partner', $partner);
 
 			// Si l'inscription s'est bien déroulé
 			if ($res->execute()) {
@@ -150,38 +154,12 @@ if(!empty($_POST)){
 	if(!empty($errors)){
 		$showErr = true;
 		if(!isset($post['newsletter'])){
-			$post['newsletter'] = flase;
+			$post['newsletter'] = false;
 		}
 	}
 }
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<title>Youthie : Faire d'une mission un succès</title>
-	<link rel="icon" type="image/png" href="../images/favicon.png" />
-	<link rel="stylesheet" href="../css/bootstrap.css">
-	<link rel="stylesheet" href="../css/style.css">
-	<link rel="stylesheet" href="../css/youthie_form.css">
-	<link rel="stylesheet" href="../css/newStyle.css">
-	<script src="../js/mode.js"></script>
-	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-		ga('create', 'UA-87485637-1', 'auto');
-		ga('send', 'pageview');
-
-	</script>
-</head>
-<body>
-<!-- GNU General Public License, version 3 (GPL-3.0) -->
-<div class="wrapper">
-
-	<a href="../menumob/"><div class="nav-toggle"></div></a>
 
 	<?php require '../inc/header.php'; ?>
 
@@ -279,15 +257,18 @@ if(!empty($_POST)){
 						<input type="radio" name="car" value="no"> Non
 						<br>
 
-						<input type="checkbox" name="newsletter" value="news" <?php if($showErr == true && $post['newsletter'] == 'news'){echo 'checked="checked"';} ?>> Je souhaite recevoir  la newsletter Youthies
+						<input type="checkbox" id="newsletter" name="newsletter" value="news" checked="checked"<?php if($showErr == true && $post['newsletter'] == 'news'){echo 'checked="checked"';} ?>>
+						<label id="labNews" for="newsletter"> Je souhaite recevoir  la newsletter Youthies
+						</label> 
+							
 						<br>
 						<p class="linkConnecInscri">
-							<a href="../connexion/" class="colorLink right blue">Déjà inscrit ?</a>
+							<a href="connection.php" class="colorLink right blue">Déjà inscrit ?</a>
 						</p>
 						<button class="btn btn-default" type="submit">Créer mon compte</button>
 						<br>
 						<br>
-						En cliquant sur "Créer mon compte", j'accepte les<a class="link" href="../cgu/"> Conditions Générales d'Utilisation</a> de Youthie
+						En cliquant sur "Créer mon compte", j'accepte les<a class="link" href="../cgu.php"> Conditions Générales d'Utilisation</a> de Youthie
 					</form>
 				</div>
 			</div>

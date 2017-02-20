@@ -4,7 +4,7 @@
 if (!isset($_SESSION['user']['statut'])){
     header('location: ../connexion/');
 }
-elseif($_SESSION['user']['statut'] !== 'Etudiant'){
+elseif($_SESSION['user']['statut'] !== 'etudiant'){
     header('location: ../accueil/');
 }
 //Sinon on affiche la page
