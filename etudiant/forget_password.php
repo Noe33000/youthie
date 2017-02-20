@@ -1,31 +1,87 @@
-<?php session_start(); ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<title>Youthie : Faire d'une mission un succès</title>
-	<link rel="icon" type="image/png" href="../images/favicon.png" />
-	<link rel="stylesheet" href="../css/bootstrap.css">
-	<link rel="stylesheet" href="../css/style.css">
-	<script src="../js/mode.js"></script>
-	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<?php 
+session_start();
+require_once "../inc/connect.php";
+include_once 'vendor/autoload.php';
+//Si on est connecté, on est redirigé vers l'accueil
+if(!empty($_SESSION)){
+	header('Location: ../index.php');
+}
 
-		ga('create', 'UA-87485637-1', 'auto');
-		ga('send', 'pageview');
+$error = [];
+$post = [];
 
-	</script>
-</head>
-<body>
-<!-- GNU General Public License, version 3 (GPL-3.0) -->
-<div class="wrapper">
+$showForm = true;
+// Traitement des formulaires
+if(!empty($_POST)) {
+// Nettoyage des données
+	foreach($_POST as $key => $value) {
+		$post[$key] = trim(strip_tags($value));
+	}
 
-	<a href="../menumob/"><div class="nav-toggle"></div></a>
+    // Traitement du formulaire du mail
+    if(isset($post['email'])) {
 
-	<?php require '../navbar/navbar.php'; ?>
+    	if(filter_var($post['email'], FILTER_VALIDATE_EMAIL)) {
+    		$req = $conn->prepare('SELECT email FROM students WHERE email= :email');
+    		$req->bindValue(':email', $post['email']);
+    		$req->execute();
+
+    		$emailExist = $req->fetchColumn();
+    		if(!empty($emailExist)) {    // On search une corres avec le mail
+
+    			$token = md5(uniqid()); // Création du token
+
+    			$insert = $db->prepare('INSERT INTO tokens_password (email, token, date_create, date_exp) VALUES (:emailInsert, :tokenInsert, NOW(), NOW() + INTERVAL 2 DAY)');
+    			$insert->bindValue(':emailInsert', $post['email']);
+    			$insert->bindValue(':tokenInsert', $token);
+                //insertion to the db
+    			if($insert->execute()) {
+                    // we compose a link to send
+                    $magicLink = '<a href="'. $_SERVER['HTTP_HOST'].'/etudiant/lost_password.php?email='.$post['email'].'&token='.$token.'">Get new password</a>';
+
+    		       	$mail = new PHPMailer;
+    		        //$mail->SMTPDebug = 3;                               // Enable verbose debug output
+    		        $mail->isSMTP();                                      // Set mailer to use SMTP
+    	        	$mail->Host = 'smtp.mailgun.org';                     // Specify main and backup SMTP servers
+    	        	$mail->SMTPAuth = true;                               // Enable SMTP authentication
+    	        	$mail->Username = 'postmaster@wf3.axw.ovh';           // SMTP username
+    	        	$mail->Password = 'WF3sessionPhilo2';                 // SMTP password
+    	        	$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+    	        	$mail->Port = 587;                                    // TCP port to connect to
+
+    	        	$mail->setFrom('contact@monsupersite.fr', 'contact du site'); //expéditeur
+    	        	$mail->addAddress($post['email'], '');                // Add a recipient// Name is optional
+    	        	$mail->addReplyTo('info@example.com', 'Information');// si on l'enlève ça renvoie auto à l'expéditeur
+
+    	       	 	$mail->isHTML(true);                                  // Set email format to HTML
+
+    	        	$mail->Subject = 'Here is the subject';
+    	        	$mail->Body    = $magicLink;
+    	        	$mail->AltBody = $magicLink;
+
+                    if(!$mail->send()) {
+                		echo 'Le message ne peut être envoyé.';
+               			echo 'Mailer Error: ' . $mail->ErrorInfo;
+            		} else {
+                        $showForm = false;
+               			echo '<p class="noresult-msg">Le message a bien été envoyé sur votre boite de mail et nous vous remercions';
+        			}
+    			}//fin if insert execute
+    		}//if empty emailexist
+            else {
+                echo 'Votre email n\'est pas enregistré!';
+            }
+    	}//fin filter var
+		else
+		{
+		$error[] = 'Votre adresse email est incorrecte';
+		}
+    }// fin if EMPTYpost
+}
+
+?>
+	<?php require '../inc/header.php'; ?>
+
 
 	<main>
 
@@ -37,38 +93,7 @@
 							<div style="margin:0 auto;width: 300px;"><h3>Mot de passe perdu ?</h3></div>
 						</div>
 					</div>
-					<?php
-					if(isset($_POST['email'])) {
-						$Email = $_POST['email'];
-						//$mysqli = new mysqli("localhost","root", "", "arkamitcjfefedb3");
-						$mysqli = new mysqli('arkamitcjfefedb3.mysql.db', 'arkamitcjfefedb3', 'C6c6f7946fdc', 'arkamitcjfefedb3');
-						if($mysqli->connect_error) { die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error); }
-						$results = $mysqli->query("SELECT id, Avatar, Utilisateur, Email, MotdePasse FROM youthie_etudiants WHERE Email='".$Email."' ");
-						while($row = $results->fetch_object()) {
-							$_nom 		= $row->Nom;
-							$_prenom 	= $row->Prenom;
-							$_email 	= $row->Email;
-							$_mot2pass 	= $row->MotdePasse;
-							$password 	= base64_decode($_mot2pass);
-						}
-						$from	   = 'ne-pas-repondre@youthie.io';
-						$to		   = $_POST['email'];
-						$message   = "Bonjour ".$_prenom." \n\n Voici votre mot de passe de connection à Youthie : ".$password."
-
-Cordialement,
-
-L’equipe Youthie\n";
-						$subject   = 'Youthie - Mot de passe';
-						$headers   = "From: <".$from.">\n";
-						$headers  .= "Reply-To: ".$from."\n";
-						$headers  .= 'Content-Type: text/plain; charset="UTF-8"';
-						$mail_sent = mail($to, $subject, $message, $headers);
-						if($mail_sent) {
-							echo '<br><div style="text-align:center">Consultez votre messagerie mail pour réinitialisé votre mot de passe</div><br>';
-						}
-						$mysqli->close();
-					}
-					?>
+					
 					<form action="#" method="post">
 						<div style="margin:0 auto;width:300px;">
 							<label for="email">Email*</label>
@@ -88,5 +113,5 @@ L’equipe Youthie\n";
 </div>
 <!-- GNU General Public License, version 3 (GPL-3.0) -->
 </body>
-<?php require '../footer/footer.php'; ?>
+<?php require '../inc/footer.php'; ?>
 </html>

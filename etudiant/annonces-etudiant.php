@@ -5,30 +5,20 @@
 if (!isset($_SESSION['user']['statut'])){
     header('location: connection.php');
 }
+//Si on est connecté en tant qu'entreprise, on est redirigé vers la partie professionnel
 elseif($_SESSION['user']['statut'] !== 'etudiant'){
-    header('location: ../accueil/');
+    header('location: ../professionnel/mes_missions.php');
 }
 //Sinon on affiche la page
-else {
-    if($_conn->connect_error) {
-        die("Connection failed : ". $_conn->connect_error);
-    }
-    $_sql = "SELECT * FROM youthie_mission ORDER BY STR_TO_DATE(DatedeDebut, '%d/%m/%Y') ASC";
-    $id = $_SESSION["id"];
-    $a = 0;
-    $info = 0;
-    $_result = $_conn->query($_sql);
+//On va chercher toutes les annonces étudiantes
+$miss = $conn->prepare('SELECT * FROM missions');
+$miss->execute();
+$allMiss = $miss->fetchAll(PDO::FETCH_ASSOC);
+var_dump($allMiss);
 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="../images/favicon.png" />
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/youthie_form.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<?php require '../inc/header.php'; ?>
+
     <title>Youthie - Annonces</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script>
@@ -95,7 +85,7 @@ else {
 
     <a href="../menumob/"><div class="nav-toggle"></div></a>
 
-    <?php include '../navbar/navbar.php'; ?>
+
     <main>
         <br>
         <section class="module content" style="padding-top: 0;">
@@ -317,4 +307,3 @@ else {
 </body>
 <?php require '../footer/footer.php'; ?>
 </html>
-<?php } ?> <!-- Fin de else pour la vérification de la connexion -->
