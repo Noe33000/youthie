@@ -151,13 +151,27 @@
 	text-align:center;
 	color:#fff;
 }
-
+/*INSCRIPTION 2*/
+#wrapInscrip2{
+	max-width: 75%;
+}
+.titleForm{
+	margin: 1em auto;
+	text-decoration: underline;
+	font-size: 1.3em;
+}
+.wrapMulti{
+	margin-bottom: 1em;
+}
 /*CLASS GENERAL*/
 .colorWhite{
 	color: #FFF;
 }
 .center{
 	text-align: center;
+}
+.textLeft{
+	text-align: left;
 }
 .uppercase{
 	text-transform: uppercase;
@@ -170,4 +184,7 @@
 }
 .right{
 	float: right;
+}
+main{
+	width: 100%;
 }

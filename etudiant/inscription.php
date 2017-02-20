@@ -12,6 +12,7 @@ $showErr = false;
 $errors = array();
 $post = array();
 $etapeInsc = '1';
+$statut = 'etudiant';
 
 
 /*if(isset($_SESSION) && !empty($_SESSION)){
@@ -22,7 +23,7 @@ if(!empty($_POST)){
 	foreach($_POST as $key => $value){
 		$post[$key] = trim(strip_tags($value));
 	}	
-
+	var_dump($post);
 	if(strlen($post['firstname']) < 2 || strlen($post['firstname']) > 15){
 		$errors[] = 'Votre prénom doit contenir entre 2 et 15 caractères.';
 	}
@@ -133,6 +134,7 @@ if(!empty($_POST)){
 					'firstname' 	=> $post['firstname'],
 					'lastname' 		=> $post['lastname'],
 					'email' 		=> $post['email'],
+					'statut'		=> $statut,
 					'inscription'	=> $etapeInsc
 				];
 				// Puis on le redirige vers la deuxième page de connexion
@@ -152,7 +154,6 @@ if(!empty($_POST)){
 		}
 	}
 }
-	var_dump($post);
 ?>
 <!DOCTYPE html>
 <html>

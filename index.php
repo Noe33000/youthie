@@ -15,6 +15,7 @@
       */
 
 	require_once "inc/connect.php";
+	var_dump($_SESSION);
 	
 	//On définie les liens des boutons en fonction de l'état de connexion
 	if(isset($_SESSION["statut"]) && $_SESSION["statut"] == 'Etudiant') {

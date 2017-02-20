@@ -1,15 +1,14 @@
 <?php session_start(); 
+    require_once '../inc/connect.php';
 // Si on n'est pas connecté en tant qu'étudiant, on est renvoyé sur une page de connexion
-if (!isset($_SESSION['statut'])){
+if (!isset($_SESSION['user']['statut'])){
     header('location: ../connexion/');
 }
-elseif($_SESSION['statut'] !== 'Etudiant'){
+elseif($_SESSION['user']['statut'] !== 'Etudiant'){
     header('location: ../accueil/');
 }
 //Sinon on affiche la page
 else {
-    $_conn = new mysqli("localhost","root", "", "arkamitcjfefedb3");
-    //$_conn = new mysqli('arkamitcjfefedb3.mysql.db', 'arkamitcjfefedb3', 'C6c6f7946fdc', 'arkamitcjfefedb3');
     if($_conn->connect_error) {
         die("Connection failed : ". $_conn->connect_error);
     }
@@ -95,7 +94,7 @@ else {
 
     <a href="../menumob/"><div class="nav-toggle"></div></a>
 
-    <?php require '../navbar/navbar.php'; ?>
+    <?php include '../navbar/navbar.php'; ?>
     <main>
         <br>
         <section class="module content" style="padding-top: 0;">
