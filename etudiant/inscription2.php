@@ -1,7 +1,7 @@
 <?php 
 require_once "../inc/connect.php";
 session_start();
-//var_dump($_SESSION); 
+
 
 $exist = false;
 $msgConfirm = false;
@@ -10,7 +10,7 @@ $errors = array();
 $post = array();
 $idUser = $_SESSION['user']['id'];
 $etapeInscription = '2';
-var_dump($_POST);
+
 
 //Si la personne n'est pas connecté, on l'envoie vers la première partie de l'inscription.
 if(!isset($_SESSION) || empty($_SESSION)){

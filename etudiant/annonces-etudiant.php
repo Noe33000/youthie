@@ -1,8 +1,9 @@
 <?php session_start(); 
     require_once '../inc/connect.php';
+
 // Si on n'est pas connecté en tant qu'étudiant, on est renvoyé sur une page de connexion
 if (!isset($_SESSION['user']['statut'])){
-    header('location: ../connexion/');
+    header('location: connection.php');
 }
 elseif($_SESSION['user']['statut'] !== 'etudiant'){
     header('location: ../accueil/');

@@ -1,13 +1,12 @@
 <?php
 require_once "../inc/connect.php";
 session_start();
-var_dump($_SESSION);
-var_dump($_POST);
 
 // SI on est déjà connecté
 if(!empty($_SESSION)){
 	// En tant qu'étudiant
 	if($_SESSION['user']['statut'] == 'etudiant'){
+	echo 'test';
 		//on est redirigé vers la liste des annonces étudiant
 		header('Location: annonces-etudiant.php');
 	}
@@ -43,9 +42,6 @@ if(!empty($_POST)){
 			// Si $user n'est pas vide, c'est qu'il y a un utilisateur
 			if(!empty($user)){
 				// On vérifie le mot de passe saisi et le mot de passe hashé
-				var_dump($post['password']);
-				var_dump($user['password']);
-				var_dump(password_verify($post['password'], $user['password']));
 				if(password_verify($post['password'], $user['password'])){
 					// Ici le mot de passe est valide donc je stocke mes infos en sessions
 					$_SESSION['user'] = [
@@ -53,15 +49,16 @@ if(!empty($_POST)){
 						'firstname' 	=> $user['firstname'],
 						'lastname' 		=> $user['lastname'],
 						'email' 		=> $user['email'],
-						'statut'		=> $user['statut'],
+						'statut'		=> 'etudiant',
 						'inscription'	=> $user['inscription']
 					];
 
-					//Si l'étape inscription est encore sur 1 cad qu'il n'a pas fini de remplir son profile
+					//Si l'étape inscription est encore sur 1 cad qu'il n'a pas fini de remplir son profil
 					if($_SESSION['user']['inscription'] == '1'){
 						// Je redirige vers la page "inscription2.php"
 						header('Location: inscription2.php');
 					}
+					//Sinon je le renvoie vers la liste des annonces
 					else{
 						header('Location: annonces-etudiant.php');
 					}

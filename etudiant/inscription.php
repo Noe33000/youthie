@@ -24,7 +24,7 @@ if(!empty($_POST)){
 	foreach($_POST as $key => $value){
 		$post[$key] = trim(strip_tags($value));
 	}	
-	var_dump($post);
+
 	if(strlen($post['firstname']) < 2 || strlen($post['firstname']) > 15){
 		$errors[] = 'Votre prénom doit contenir entre 2 et 15 caractères.';
 	}
